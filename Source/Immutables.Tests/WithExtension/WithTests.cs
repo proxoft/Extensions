@@ -13,7 +13,7 @@ namespace Proxoft.Extensions.Immutables.Tests.WithExtension
             var updated = sample.With(s => s.Child, newChild);
 
             Assert.AreNotSame(updated, sample);
-            Assert.IsNull(sample.Child);
+            Assert.IsNotNull(sample.Child);
             Assert.AreSame(newChild, updated.Child);
         }
 
@@ -24,8 +24,7 @@ namespace Proxoft.Extensions.Immutables.Tests.WithExtension
             var updated = sample.With(s => s.IntValue, 10);
 
             Assert.AreNotSame(updated, sample);
-            Assert.IsNull(sample.Child);
-            Assert.IsNull(updated.Child);
+            Assert.AreSame(sample.Child, updated.Child);
             Assert.AreEqual(10, updated.IntValue);
         }
 

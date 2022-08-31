@@ -1,9 +1,8 @@
 ﻿<Project>
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <Nullable>enable</Nullable>
         <AssemblyName>Proxoft.Extensions.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>Proxoft.Extensions.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+        <Nullable>enable</Nullable>
         <Authors>Proxoft s.r.o.</Authors>
         <Copyright>www.proxoft.sk</Copyright>
         <Product>www.znaleckyportal.sk</Product>

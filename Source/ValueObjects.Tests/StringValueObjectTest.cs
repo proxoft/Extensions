@@ -107,7 +107,7 @@ namespace Proxoft.Extensions.ValueObjects.Tests
 
     public class AsIsStringValueObject : StringValueObject<AsIsStringValueObject>
     {
-        public AsIsStringValueObject(string value) : base(value, 10, NullEmptyStringConversion.AsIs)
+        public AsIsStringValueObject(string? value) : base(value, 10, NullEmptyStringConversion.AsIs)
         {
         }
     }
@@ -121,7 +121,7 @@ namespace Proxoft.Extensions.ValueObjects.Tests
 
     public class NullToEmptyStringValueObject : StringValueObject<NullToEmptyStringValueObject>
     {
-        public NullToEmptyStringValueObject(string value) : base(value, 10, NullEmptyStringConversion.NullToEmpty)
+        public NullToEmptyStringValueObject(string? value) : base(value, 10, NullEmptyStringConversion.NullToEmpty)
         {
         }
     }

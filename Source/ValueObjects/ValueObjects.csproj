@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
         <Version>2.0.0</Version>
         <Description>Base implementation for ValueObject and some default value objects (String, Int, Decimal)
 ValueObject&lt;T&gt;

@@ -1,7 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <TargetFrameworks>netstandard1.0;net5.0</TargetFrameworks>
         <Version>1.0.0</Version>
+        <Description>
+            A workaround of "records" for older frameworks.
+            Implementation of immutable class supporting a syntax for updates:
+            Foo foo = new().With(f =&gt; f.X = value);
+            The "With" method creates a shallow clone of the instance and then updates the properties of the new instance using the given in the expression.
+        </Description>
+        <LangVersion>9.0</LangVersion>
     </PropertyGroup>
-
 </Project>

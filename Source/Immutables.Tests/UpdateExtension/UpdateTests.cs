@@ -14,7 +14,7 @@ namespace Proxoft.Extensions.Immutables.Tests.UpdateExtension
             var updated = _sample.SetChild(newChild);
 
             Assert.AreNotSame(updated, _sample);
-            Assert.IsNull(_sample.Child);
+            Assert.AreNotSame(newChild, _sample.Child);
             Assert.AreSame(newChild, updated.Child);
         }
     }

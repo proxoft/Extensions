@@ -6,6 +6,7 @@ namespace Proxoft.Extensions.ValueObjects.Tests
     [TestClass]
     public class SerializationTests
     {
+        [Ignore]
         [TestMethod]
         public void SerializeDeserialize()
         {

@@ -2,8 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>Proxoft.Extensions.ValueObjects.Tests</RootNamespace>
-        <AssemblyName>Proxoft.Extensions.ValueObjects.Tests</AssemblyName>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
