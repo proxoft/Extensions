@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Version>2.0.0</Version>
+        <Description>Base implementation for ValueObject and some default value objects (String, Int, Decimal)
+ValueObject&lt;T&gt;
+StringValueObject&lt;T&gt;
+</Description>
+    </PropertyGroup>
+
+</Project>
