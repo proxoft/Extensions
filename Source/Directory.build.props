@@ -9,5 +9,8 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>Proxoft.Extensions.$(MSBuildProjectName)</PackageId>
         <Product>Extensions</Product>
+        <RepositoryUrl>https://github.com/proxoft/Extensions.git</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/proxoft/Extensions</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 </Project>

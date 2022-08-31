@@ -10,5 +10,7 @@
             The "With" method creates a shallow clone of the instance and then updates the properties of the new instance using the given in the expression.
         </Description>
         <LangVersion>9.0</LangVersion>
+        <Title>Immutables</Title>
+        <PackageTags>Immutable</PackageTags>
     </PropertyGroup>
 </Project>
