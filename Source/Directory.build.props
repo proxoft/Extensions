@@ -3,6 +3,7 @@
         <AssemblyName>Proxoft.Extensions.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>Proxoft.Extensions.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
         <Nullable>enable</Nullable>
+        <LangVersion>10.0</LangVersion>
         <Authors>Proxoft s.r.o.</Authors>
         <Copyright>www.proxoft.sk</Copyright>
         <Product>www.znaleckyportal.sk</Product>

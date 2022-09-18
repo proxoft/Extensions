@@ -1,53 +1,52 @@
 ﻿using System;
 
-namespace Proxoft.Extensions.ValueObjects
+namespace Proxoft.Extensions.ValueObjects;
+
+public abstract class ValueObject<T> : IEquatable<T>
+    where T: ValueObject<T>
 {
-    public abstract class ValueObject<T> : IEquatable<T>
-        where T: ValueObject<T>
+    protected ValueObject()
     {
-        protected ValueObject()
+    }
+
+    protected abstract bool EqualsCore(T other);
+
+    protected abstract int GetHashCodeCore();
+
+    public sealed override int GetHashCode() => this.GetHashCodeCore();
+
+    public bool Equals(T? other)
+    {
+        if (other is null)
         {
+            return false;
         }
 
-        protected abstract bool EqualsCore(T other);
+        return this.EqualsCore(other);
+    }
 
-        protected abstract int GetHashCodeCore();
+    public sealed override bool Equals(object? obj)
+    {
+        return this.Equals(obj as T);
+    }
 
-        public sealed override int GetHashCode() => this.GetHashCodeCore();
-
-        public bool Equals(T? other)
+    public static bool operator ==(ValueObject<T> left, ValueObject<T> right)
+    {
+        if (left is null && right is null)
         {
-            if (other is null)
-            {
-                return false;
-            }
-
-            return this.EqualsCore(other);
+            return true;
         }
 
-        public sealed override bool Equals(object? obj)
+        if (left is null || right is null)
         {
-            return this.Equals(obj as T);
+            return false;
         }
 
-        public static bool operator ==(ValueObject<T> left, ValueObject<T> right)
-        {
-            if (left is null && right is null)
-            {
-                return true;
-            }
+        return left.Equals(right);
+    }
 
-            if (left is null || right is null)
-            {
-                return false;
-            }
-
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(ValueObject<T> left, ValueObject<T> right)
-        {
-            return !(left == right);
-        }
+    public static bool operator !=(ValueObject<T> left, ValueObject<T> right)
+    {
+        return !(left == right);
     }
 }

@@ -1,128 +1,31 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Proxoft.Extensions.ValueObjects.Tests
+namespace Proxoft.Extensions.ValueObjects.Tests;
+
+[TestClass]
+public class StringValueObjectTest
 {
-    [TestClass]
-    public class StringValueObjectTest
+    [TestMethod]
+    public void NullValueIsConvertedToAbc()
     {
-        [TestMethod]
-        public void AsIsContainingNull()
-        {
-            AsIsStringValueObject vo = new(null);
+        ConvertToAbcStringValueObject vo = new(null);
 
-            Assert.IsNull((string)vo);
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void AsIsContainingEmpty()
-        {
-            AsIsStringValueObject vo = new(string.Empty);
-
-            Assert.AreEqual(string.Empty, (string)vo);
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void AsIsContainingString()
-        {
-            AsIsStringValueObject vo = new("123");
-
-            Assert.AreEqual("123", (string)vo);
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void EmptyToNullContainingNull()
-        {
-            EmptyToNullStringValueObject vo = new(null);
-
-            Assert.IsNull((string)vo);
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void EmptyToNullContainingEmpty()
-        {
-            EmptyToNullStringValueObject vo = new(string.Empty);
-
-            Assert.IsNull((string)vo);
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void EmptyToNullContainingString()
-        {
-            AsIsStringValueObject vo = new("123");
-
-            Assert.AreEqual("123", (string)vo);
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void NullToEmptyContainingNull()
-        {
-            NullToEmptyStringValueObject vo = new(null);
-
-            Assert.AreEqual(string.Empty, (string)vo);
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void NullToEmptyContainingEmpty()
-        {
-            NullToEmptyStringValueObject vo = new(string.Empty);
-
-            Assert.AreEqual(string.Empty, (string)vo);
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual(string.Empty, vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.IsNull(vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
-
-        [TestMethod]
-        public void NullToEmptyContainingString()
-        {
-            NullToEmptyStringValueObject vo = new("123");
-
-            Assert.AreEqual("123", (string)vo);
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.AsIs));
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.NullToEmpty));
-            Assert.AreEqual("123", vo.ToString(NullEmptyStringConversion.EmptyToNull));
-        }
+        Assert.AreEqual("abc", (string)vo);
     }
 
-    public class AsIsStringValueObject : StringValueObject<AsIsStringValueObject>
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void ThrowsIfLengthIsMoreThan10()
     {
-        public AsIsStringValueObject(string? value) : base(value, 10, NullEmptyStringConversion.AsIs)
-        {
-        }
+        ConvertToAbcStringValueObject vo = new(new string('a', 11));
     }
+}
 
-    public class EmptyToNullStringValueObject : StringValueObject<EmptyToNullStringValueObject>
+public class ConvertToAbcStringValueObject : StringValueObject<ConvertToAbcStringValueObject>
+{
+    public ConvertToAbcStringValueObject(string? value) 
+        : base(value, v => GuardFunctions.ThrowIfLength(v, 10), v => v ?? "abc")
     {
-        public EmptyToNullStringValueObject(string value) : base(value, 10, NullEmptyStringConversion.EmptyToNull)
-        {
-        }
-    }
-
-    public class NullToEmptyStringValueObject : StringValueObject<NullToEmptyStringValueObject>
-    {
-        public NullToEmptyStringValueObject(string? value) : base(value, 10, NullEmptyStringConversion.NullToEmpty)
-        {
-        }
     }
 }

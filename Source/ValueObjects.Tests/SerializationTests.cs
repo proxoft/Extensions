@@ -23,7 +23,7 @@ namespace Proxoft.Extensions.ValueObjects.Tests
 
     public class TestValueObject : IntValueObject<TestValueObject>
     {
-        public TestValueObject(int value) : base(value)
+        public TestValueObject(int value) : base(value, minValue: 5)
         {
         }
     }

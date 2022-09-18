@@ -1,0 +1,53 @@
+﻿using System;
+
+namespace Proxoft.Extensions.ValueObjects;
+
+public static class GuardFunctions
+{
+    public static void ThrowIfNotInRange(int value, int min = int.MinValue, int max = int.MaxValue)
+    {
+        if(value < min || value > max)
+        {
+            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+        }
+    }
+
+    public static void ThrowIfNotInRange(double value, double min = double.MinValue, double max = double.MaxValue)
+    {
+        if (value < min || value > max)
+        {
+            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+        }
+    }
+
+    public static void ThrowIfNotInRange(decimal value, decimal min = decimal.MinValue, decimal max = decimal.MaxValue)
+    {
+        if (value < min || value > max)
+        {
+            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+        }
+    }
+
+    public static void ThrowIfLength(
+        string? value,
+        int maxLength)
+    {
+        ThrowIfLengthNotInRange(value, minLength: 0, maxLength: maxLength);
+    }
+
+    public static void ThrowIfLengthNotInRange(
+        string? value,
+        int minLength = 0,
+        int maxLength = int.MaxValue)
+    {
+        if((value?.Length ?? 0) < minLength || (value?.Length ?? 0) > maxLength)
+        {
+            throw new ArgumentOutOfRangeException($"the length must be between {minLength} and {maxLength}");
+        }
+    }
+
+    public static string NullToEmptyConversion(string? value)
+    {
+        return value ?? string.Empty;
+    }
+}
