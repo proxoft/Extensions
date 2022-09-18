@@ -31,7 +31,7 @@ public class Lat : DecimalValueObject<Lat>
 
     public Lat(decimal value) : base(
         value,
-        v => { })
+        Guard)
     {
     }
 
