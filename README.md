@@ -27,7 +27,7 @@ public class FooId: IntValueObject<FooId>
 ```C#
 public class Lat : DecimalValueObject<Lat>
 {
-    public static readonly Lat Undefined = new(-1);
+    public static readonly Lat Undefined = new(-100); // whatever value outside of the range
 
     public Lat(decimal value) : base(
         value,
@@ -37,7 +37,7 @@ public class Lat : DecimalValueObject<Lat>
 
     private static void Guard(decimal value)
     {
-        if(value == -1)
+        if(value == -100)
         {
             return;
         }
