@@ -12,6 +12,14 @@ public static class GuardFunctions
         }
     }
 
+    public static void ThrowIfNotInRange(long value, long min = long.MinValue, long max = int.MaxValue)
+    {
+        if(value < min || value > max)
+        {
+            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+        }
+    }
+
     public static void ThrowIfNotInRange(double value, double min = double.MinValue, double max = double.MaxValue)
     {
         if (value < min || value > max)

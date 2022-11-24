@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
 
 namespace Proxoft.Extensions.ValueObjects;
 
@@ -13,10 +12,17 @@ public abstract class DoubleValueObject<T> : ValueObject<T>
 
     protected DoubleValueObject(
         double value,
+        double equalityTolerance = 0.001)
+        : this(value, equalityTolerance, v => GuardFunctions.ThrowIfNotInRange(v))
+    {
+    }
+
+    protected DoubleValueObject(
+        double value,
         double equalityTolerance = 0.001,
         double min = double.MinValue,
         double max = double.MaxValue)
-        : this(value, equalityTolerance, (double v) => GuardFunctions.ThrowIfNotInRange(v, min, max))
+        : this(value, equalityTolerance, v => GuardFunctions.ThrowIfNotInRange(v, min, max))
     {
     }
 
@@ -38,5 +44,10 @@ public abstract class DoubleValueObject<T> : ValueObject<T>
     protected override int GetHashCodeCore()
     {
         return _value.GetHashCode();
+    }
+
+    public static implicit operator double(DoubleValueObject<T> valueObject)
+    {
+        return valueObject._value;
     }
 }
