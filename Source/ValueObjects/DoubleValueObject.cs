@@ -45,4 +45,9 @@ public abstract class DoubleValueObject<T> : ValueObject<T>
     {
         return _value.GetHashCode();
     }
+
+    public static implicit operator double(DoubleValueObject<T> valueObject)
+    {
+        return valueObject._value;
+    }
 }
