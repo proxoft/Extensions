@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Metadata;
 
 namespace Proxoft.Extensions.ValueObjects;
 
@@ -9,13 +7,18 @@ namespace Proxoft.Extensions.ValueObjects;
 public abstract class IntValueObject<T> : ValueObject<T>
     where T : IntValueObject<T>
 {
-    private readonly int _value;
+    private readonly int _value; 
+    
+    protected IntValueObject(
+        int value) : this(value, v => GuardFunctions.ThrowIfNotInRange(v))
+    {
+    }
 
     protected IntValueObject(
         int value,
         int minValue = int.MinValue,
         int maxValue = int.MaxValue
-        ) : this(value, (int v) => GuardFunctions.ThrowIfNotInRange(v, minValue, maxValue))
+        ) : this(value, v => GuardFunctions.ThrowIfNotInRange(v, minValue, maxValue))
     {
     }
 
