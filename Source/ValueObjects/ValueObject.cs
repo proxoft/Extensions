@@ -5,10 +5,6 @@ namespace Proxoft.Extensions.ValueObjects;
 public abstract class ValueObject<T> : IEquatable<T>
     where T: ValueObject<T>
 {
-    protected ValueObject()
-    {
-    }
-
     protected abstract bool EqualsCore(T other);
 
     protected abstract int GetHashCodeCore();
@@ -30,7 +26,7 @@ public abstract class ValueObject<T> : IEquatable<T>
         return this.Equals(obj as T);
     }
 
-    public static bool operator ==(ValueObject<T> left, ValueObject<T> right)
+    public static bool operator ==(ValueObject<T>? left, ValueObject<T>? right)
     {
         if (left is null && right is null)
         {
@@ -45,7 +41,7 @@ public abstract class ValueObject<T> : IEquatable<T>
         return left.Equals(right);
     }
 
-    public static bool operator !=(ValueObject<T> left, ValueObject<T> right)
+    public static bool operator !=(ValueObject<T>? left, ValueObject<T>? right)
     {
         return !(left == right);
     }
