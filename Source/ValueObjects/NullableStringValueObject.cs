@@ -8,6 +8,7 @@ public class NullableStringValueObject<T> : ValueObject<T>
     where T : NullableStringValueObject<T>
 {
     private readonly string? _value;
+    private readonly Func<string?, string?, bool> _valueComparer;
 
     protected NullableStringValueObject(
             string? value,
@@ -18,10 +19,14 @@ public class NullableStringValueObject<T> : ValueObject<T>
 
     protected NullableStringValueObject(
         string? value,
-        Action<string?>? guard = null)
+        Action<string?>? guard = null,
+        Func<string?, string?, bool>? valueComparer = null)
     {
         guard?.Invoke(value);
         _value = value;
+
+        Func<string?, string?, bool> defaultStringComparer = (s1, s2) => s1 == s2;
+        _valueComparer = valueComparer ?? defaultStringComparer;
     }
 
     public bool IsNull => _value == null;
@@ -42,7 +47,7 @@ public class NullableStringValueObject<T> : ValueObject<T>
 
     protected sealed override bool EqualsCore(T other)
     {
-        return _value == other._value;
+        return _valueComparer(_value, other._value);
     }
 
     public static implicit operator string?(NullableStringValueObject<T> value)
