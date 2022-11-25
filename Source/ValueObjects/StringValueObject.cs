@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace Proxoft.Extensions.ValueObjects;
 
@@ -8,6 +9,7 @@ public abstract class StringValueObject<T> : ValueObject<T>
     where T: StringValueObject<T>
 {
     private readonly string _value;
+    private readonly Func<string?, string?, bool> _valueComparer;
 
     protected StringValueObject(
         string? value) : this(
@@ -27,11 +29,15 @@ public abstract class StringValueObject<T> : ValueObject<T>
     protected StringValueObject(
         string? value,
         Action<string?>? guard = null,
-        Func<string?, string>? nullValueConversion = null
+        Func<string?, string>? nullValueConversion = null,
+        Func<string?, string?, bool>? valueComparer = null
     )
     {
         guard?.Invoke(value);
         _value = nullValueConversion?.Invoke(value) ?? GuardFunctions.NullToEmptyConversion(value);
+
+        Func<string?, string?, bool> defaultStringComparer = (s1, s2) => s1 == s2;
+        _valueComparer = valueComparer ?? defaultStringComparer;
     }
 
     public bool IsEmpty => _value == string.Empty;
@@ -45,7 +51,7 @@ public abstract class StringValueObject<T> : ValueObject<T>
 
     protected sealed override bool EqualsCore(T other)
     {
-        return _value == other._value;
+        return _valueComparer(_value, other._value);
     }
 
     public override string ToString()
