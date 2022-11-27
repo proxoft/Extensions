@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Proxoft.Extensions.ValueObjects;
 
 [DebuggerDisplay("{this.GetType().Name}:{_value}")]
-public abstract class DecimalValueObject<T> : ValueObject<T>
+public abstract class DecimalValueObject<T> : ValueObject<T>, IComparable<T>
     where T : DecimalValueObject<T>
 {
     private readonly decimal _value;
@@ -33,6 +32,23 @@ public abstract class DecimalValueObject<T> : ValueObject<T>
     protected sealed override int GetHashCodeCore()
     {
         return _value.GetHashCode();
+    }
+
+    public int CompareTo(T? other)
+    {
+        if (other is null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        if (this == other)
+        {
+            return 0;
+        }
+
+        return this < other
+            ? -1
+            : 1;
     }
 
     public override string ToString()

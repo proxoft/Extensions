@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Proxoft.Extensions.ValueObjects;
 
 [DebuggerDisplay("{this.GetType().Name}:{_value}")]
-public abstract class DoubleValueObject<T> : ValueObject<T>
+public abstract class DoubleValueObject<T> : ValueObject<T>, IComparable<T>
     where T : DoubleValueObject<T>
 {
     private readonly double _value;
@@ -44,6 +44,23 @@ public abstract class DoubleValueObject<T> : ValueObject<T>
     protected override int GetHashCodeCore()
     {
         return _value.GetHashCode();
+    }
+
+    public int CompareTo(T? other)
+    {
+        if (other is null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        if (Math.Abs(this - other) < _equalityTolerance)
+        {
+            return 0;
+        }
+
+        return this < other
+            ? -1
+            : 1;
     }
 
     public static implicit operator double(DoubleValueObject<T> valueObject)
