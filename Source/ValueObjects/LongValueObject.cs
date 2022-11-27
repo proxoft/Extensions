@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Proxoft.Extensions.ValueObjects;
 
 [DebuggerDisplay("{this.GetType().Name}:{_value}")]
-public abstract class LongValueObject<T> : ValueObject<T>
+public abstract class LongValueObject<T> : ValueObject<T>, IComparable<T>
     where T : LongValueObject<T>
 {
     private readonly long _value;
@@ -37,6 +37,23 @@ public abstract class LongValueObject<T> : ValueObject<T>
     protected sealed override int GetHashCodeCore()
     {
         return _value.GetHashCode();
+    }
+
+    public int CompareTo(T? other)
+    {
+        if (other is null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        if (this == other)
+        {
+            return 0;
+        }
+
+        return this < other
+            ? -1
+            : 1;
     }
 
     public override string ToString()
