@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Proxoft.Extensions.ValueObjects;
 
 [DebuggerDisplay("{this.GetType().Name}:{_value}")]
-public class NullableStringValueObject<T> : ValueObject<T>
+public class NullableStringValueObject<T> : ValueObject<T>, IComparable<T>
     where T : NullableStringValueObject<T>
 {
     private readonly string? _value;
@@ -34,6 +34,11 @@ public class NullableStringValueObject<T> : ValueObject<T>
     public bool IsEmpty => _value == string.Empty;
 
     public bool IsNullOrWhitespace => string.IsNullOrWhiteSpace(_value);
+
+    public int CompareTo(T? other)
+    {
+        return string.Compare(_value, other._value);
+    }
 
     public override string? ToString()
     {
