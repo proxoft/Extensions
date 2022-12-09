@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Proxoft.Extensions.ValueObjects;
 
 [DebuggerDisplay("{this.GetType().Name}:{_value}")]
-public abstract class StringValueObject<T> : ValueObject<T>
+public abstract class StringValueObject<T> : ValueObject<T>, IComparable<T>
     where T: StringValueObject<T>
 {
     private readonly string _value;
@@ -51,6 +51,16 @@ public abstract class StringValueObject<T> : ValueObject<T>
     protected sealed override bool EqualsCore(T other)
     {
         return _valueComparer(_value, other._value);
+    }
+
+    public int CompareTo(T? other)
+    {
+        if (other is null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        return string.Compare(this, other);
     }
 
     public override string ToString()
