@@ -8,7 +8,7 @@ public static class GuardFunctions
     {
         if(value < min || value > max)
         {
-            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+            throw new ArgumentOutOfRangeException($"value {value} was expected to be between {min} and {max}");
         }
     }
 
@@ -16,7 +16,7 @@ public static class GuardFunctions
     {
         if(value < min || value > max)
         {
-            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+            throw new ArgumentOutOfRangeException($"value {value} was expected to be between {min} and {max}");
         }
     }
 
@@ -24,7 +24,7 @@ public static class GuardFunctions
     {
         if (value < min || value > max)
         {
-            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+            throw new ArgumentOutOfRangeException($"value {value} was expected to be between {min} and {max}");
         }
     }
 
@@ -32,7 +32,7 @@ public static class GuardFunctions
     {
         if (value < min || value > max)
         {
-            throw new System.ArgumentOutOfRangeException($"value must be between {min} and {max}");
+            throw new ArgumentOutOfRangeException($"value {value} was expected to be between {min} and {max}");
         }
     }
 
@@ -50,7 +50,7 @@ public static class GuardFunctions
     {
         if((value?.Length ?? 0) < minLength || (value?.Length ?? 0) > maxLength)
         {
-            throw new ArgumentOutOfRangeException($"the length must be between {minLength} and {maxLength}");
+            throw new ArgumentOutOfRangeException($"the length {value?.Length} was expected to be between {minLength} and {maxLength}");
         }
     }
 
