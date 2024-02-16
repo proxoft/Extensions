@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Proxoft.Extensions.ValueObjects;
 
@@ -61,6 +62,11 @@ public abstract class DoubleValueObject<T> : ValueObject<T>, IComparable<T>
         return this < other
             ? -1
             : 1;
+    }
+
+    public override string ToString()
+    {
+        return _value.ToString(CultureInfo.InvariantCulture);
     }
 
     public static implicit operator double(DoubleValueObject<T> valueObject)
